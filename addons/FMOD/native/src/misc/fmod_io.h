@@ -14,7 +14,7 @@ class FMODGodotBlockingIO
 	};
 
 public:
-	static FMOD_RESULT F_CALLBACK file_open(const char* name, unsigned int* filesize, void** handle, void* userdata)
+	static FMOD_RESULT F_CALL file_open(const char* name, unsigned int* filesize, void** handle, void* userdata)
 	{
 		String file_path = name;
 
@@ -36,7 +36,7 @@ public:
 		return FMOD_OK;
 	}
 
-	static FMOD_RESULT F_CALLBACK file_close(void* handle, void* userdata)
+	static FMOD_RESULT F_CALL file_close(void* handle, void* userdata)
 	{
 		FMOD_RESULT result = FMOD_RESULT::FMOD_ERR_INVALID_PARAM;
 
@@ -53,7 +53,7 @@ public:
 		return result;
 	}
 
-	static FMOD_RESULT F_CALLBACK file_read(void* handle, void* buffer, unsigned int sizebytes, unsigned int* bytesread,
+	static FMOD_RESULT F_CALL file_read(void* handle, void* buffer, unsigned int sizebytes, unsigned int* bytesread,
 			void* userdata)
 	{
 		FileHandle* const file_handle = static_cast<FileHandle*>(handle);
@@ -74,7 +74,7 @@ public:
 		return FMOD_OK;
 	}
 
-	static FMOD_RESULT F_CALLBACK file_seek(void* handle, unsigned int pos, void* userdata)
+	static FMOD_RESULT F_CALL file_seek(void* handle, unsigned int pos, void* userdata)
 	{
 		FileHandle* const file_handle = static_cast<FileHandle*>(handle);
 		Ref<FileAccess> file = file_handle->file;

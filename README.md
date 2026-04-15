@@ -1,16 +1,10 @@
 # FMOD for Godot
 
-[![Build](https://github.com/alessandrofama/fmod-for-godot/workflows/Build/badge.svg)](https://github.com/alessandrofama/fmod-for-godot/actions/workflows/build_all.yml) [![Discord](https://img.shields.io/discord/1083520667451920394?label=Discord)](https://discord.gg/XQbvRdQcNn)
-
-# <em>This project is no longer maintained and is not under active development.</em>
-
-Welcome! This repository provides an integration of [FMOD Studio's audio middleware](https://www.fmod.com/) into the [Godot game engine](https://godotengine.org). At the moment, **FMOD version 2.02.17** and **Godot 4.1.1 stable** are supported.
-
-<img src="https://alessandrofama.com/wp-content/uploads/sites/3/fmod-for-godot-1920.png" width="720">
+Welcome! This repository provides an integration of [FMOD Studio's audio middleware](https://www.fmod.com/) into the [Godot game engine](https://godotengine.org). At the moment, **FMOD version 2.03.13** and **Godot 4.6.2** are supported.
 
 ## Features
 
-* Use the FMOD Studio API on different platforms (Windows, macOS, Linux, iOS and Android) with a [GDExtension library](https://docs.godotengine.org/en/latest/tutorials/scripting/gdextension/what_is_gdextension.html) that seamlessly integrates with Godot and GDScript.
+* Use the FMOD Studio API on different platforms (Windows, macOS, Linux, iOS and Android) with a [GDExtension library](https://docs.godotengine.org/en/latest/engine_details/engine_api/gdextension/what_is_gdextension.html) that seamlessly integrates with Godot and GDScript.
 * Modify and build the library for any target platform with ease using SCons, a flexible and cross-platform software construction tool.
 * Streamlined audio authoring workflow with FMOD Studio Live Update, which lets you sync your audio project with your game in the editor or in a build. Experiment and iterate faster without reloading or recompiling your game.
 * Custom blocking I/O implementation that uses Godot's `FileAccess` API. This ensures compatibility across different platforms.
@@ -24,17 +18,48 @@ Welcome! This repository provides an integration of [FMOD Studio's audio middlew
 
 ## Getting started
 
-If you are a game developer that would like to integrate FMOD into your Godot project, go to the [releases](https://github.com/alessandrofama/fmod-for-godot/releases) page to download the addon and read the [getting started](https://alessandrofama.com/tutorials/fmod/godot/getting-started) guide.
+Extensive tutorials for the integration, including custom nodes usage and code examples can be found on the [tutorials](https://alessandrofama.com/tutorials/fmod/godot/) section of Alessandro Famà's website.
 
-If you would like to modify the code of the FMOD addon or build it yourself, visit the short [Building](https://alessandrofama.com/tutorials/fmod/godot/building) tutorial for build instructions.
+## Building
 
-## Tutorials
+The project uses SCons to build the GDExtension library. You can build the library by navigating to the addons/FMOD/native directory and executing scons:
 
-Extensive tutorials for the integration, including custom nodes usage and code examples can be found on the [tutorials](https://alessandrofama.com/tutorials/fmod/godot/) section of my website. 
+```bash
+scons platform=windows target=template_release fmod_api="C:\\Program Files (x86)\\FMOD SoundSystem\\FMOD Studio API Windows" -j8
+```
+
+The required compilation parameters are:
+
+* platform: `windows`, `macos`, `linux`, `android` or `ios`
+* target: `template_debug` or `template_release`
+* fmod_api: path to the directory that contains the api folder downloaded from fmod.com
+
+The optional parameters are:
+
+* target_path: specify a directory for the shared library
+* dev_build: to build a library with debug symbols and no optimizations
+
+The template_debug libraries in the GitHub releases use dev_build by default.
+
+### Android
+
+You need to specify the ANDROID_NDK_ROOT and arch parameters for Android:
+
+```bash
+scons platform=android target=template_debug ANDROID_NDK_ROOT=$ANDROID_NDK_LATEST_HOME arch=arm64 fmod_api=...
+```
+
+### iOS
+
+You can pass the ios_min_version parameter to scons to specify a minimum iOS version for the library:
+
+```bash
+scons platform=ios target=template_debug dev_build=yes fmod_api=/Applications/FMOD/FMOD\ Programmers\ API\ ios ios_min_version=12.0 -j8
+```
 
 ## Known issues
 
-Known issues are being logged into the [issues page](https://github.com/alessandrofama/fmod-for-godot/issues) of this repo. Please check this page first, then log a new issue if you haven't found it listed.
+Known issues are being logged into the issues page of this repo. Please check this page first, then log a new issue if you haven't found it listed.
 
 ## Contributing
 
@@ -42,7 +67,7 @@ Any contribution is welcome. Please send pull-requests with fixes or useful addi
 
 ## License
 
-The integration files, code and scripts in this repository are released under the [MIT license](https://github.com/alessandrofama/fmod-for-godot/blob/master/LICENSE).
+The integration files, code and scripts in this repository are released under the MIT license.
 
 While this project is licensed under MIT, FMOD itself is not free and has different license schemes depending on the type and budget of your project.
 

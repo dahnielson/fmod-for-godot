@@ -9,17 +9,17 @@ namespace godot
 class FMODGodotMemory
 {
 public:
-	static void* F_CALLBACK user_alloc(unsigned int size, FMOD_MEMORY_TYPE type, const char* sourcestr)
+	static void* F_CALL user_alloc(unsigned int size, FMOD_MEMORY_TYPE type, const char* sourcestr)
 	{
 		return Memory::alloc_static(size);
 	}
 
-	static void* F_CALLBACK user_realloc(void* ptr, unsigned int size, FMOD_MEMORY_TYPE type, const char* sourcestr)
+	static void* F_CALL user_realloc(void* ptr, unsigned int size, FMOD_MEMORY_TYPE type, const char* sourcestr)
 	{
 		return Memory::realloc_static(ptr, size);
 	}
 
-	static void F_CALLBACK user_free(void* ptr, FMOD_MEMORY_TYPE type, const char* sourcestr)
+	static void F_CALL user_free(void* ptr, FMOD_MEMORY_TYPE type, const char* sourcestr)
 	{
 		return Memory::free_static(ptr);
 	}
