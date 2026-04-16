@@ -221,11 +221,7 @@ jobs:
         if: steps.godot-android-lib.outputs.cache-hit != 'true'
         run: |
           cd addons/FMOD/native/tools/fmod-android-plugin/godot-lib
-          if [ "${{ env.GODOT_ENGINE_STAGE }}" = "stable" ]; then
-            curl -LJ https://downloads.tuxfamily.org/godotengine/${{ env.GODOT_ENGINE_VERSION }}/godot-lib.${{ env.GODOT_ENGINE_VERSION }}.${{ env.GODOT_ENGINE_STAGE }}.template_release.aar -o godot-lib.aar
-          else
-            curl -LJ https://downloads.tuxfamily.org/godotengine/${{ env.GODOT_ENGINE_VERSION }}/${{ env.GODOT_ENGINE_STAGE }}/godot-lib.${{ env.GODOT_ENGINE_VERSION }}.${{ env.GODOT_ENGINE_STAGE }}.template_release.aar -o godot-lib.aar
-          fi
+          curl -LJ https://github.com/godotengine/godot/releases/download/${{ env.GODOT_ENGINE_VERSION }}-${{ env.GODOT_ENGINE_STAGE }}/godot-lib.${{ env.GODOT_ENGINE_VERSION }}.${{ env.GODOT_ENGINE_STAGE }}.template_release.aar -o godot-lib.aar
           cd ../../../../../../
 
       - name: Build Android plugin
