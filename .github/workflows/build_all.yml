@@ -13,6 +13,7 @@ env:
   GODOT_ENGINE_VERSION: "4.6.2"
   GODOT_ENGINE_STAGE: "stable"
   INTEGRATION_VERSION: "1.0-alpha-5"
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build-all:
@@ -60,7 +61,7 @@ jobs:
             artifact-name: android-lib
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
         with:
           submodules: recursive
 
@@ -74,7 +75,7 @@ jobs:
 
       - name: godot-cpp library cache
         id: cache-godot-lib
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         env:
           cache-name: cache-godot-lib
         with:
@@ -83,7 +84,7 @@ jobs:
 
       - name: FMOD library cache
         id: cache-fmod-lib
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         env:
           cache-name: cache-fmod-lib
         with:
@@ -91,7 +92,7 @@ jobs:
           key: ${{ matrix.api-platform }}-build-${{ env.cache-name }}-${{ env.FMOD_VERSION }}
 
       - name: Set up Python 3.x
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v6
         with:
           python-version: "3.x"
           architecture: "x64"
@@ -172,11 +173,11 @@ jobs:
     name: Android Plugin
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
 
       - name: FMOD library cache
         id: cache-fmod-lib
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         env:
           cache-name: cache-fmod-lib
         with:
@@ -185,7 +186,7 @@ jobs:
 
       - name: Godot library cache
         id: godot-android-lib
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         env:
           cache-name: godot-android-lib
         with:
@@ -246,7 +247,7 @@ jobs:
     name: Addon
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
 
       - name: Download all libs
         uses: actions/download-artifact@v3
