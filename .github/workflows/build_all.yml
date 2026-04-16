@@ -163,7 +163,7 @@ jobs:
           cd ../../../
 
       - name: Upload libs
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.artifact-name }}
           path: addons/FMOD/native/lib
@@ -236,7 +236,7 @@ jobs:
           cp addons/FMOD/native/tools/fmod-android-plugin/fmod-android-plugin/build/outputs/aar/fmod-android-plugin-release.aar android/plugins
 
       - name: Upload Android Plugin
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: android-plugin
           path: android
@@ -302,7 +302,7 @@ jobs:
           rm -r ./.github
 
       - name: Upload final artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: fmod-${{ env.FMOD_VERSION }}-for-godot-${{ env.GODOT_ENGINE_VERSION }}-${{ env.GODOT_ENGINE_STAGE }}-${{ env.INTEGRATION_VERSION }}
           path: ./
