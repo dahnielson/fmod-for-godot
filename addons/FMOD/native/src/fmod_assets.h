@@ -14,6 +14,7 @@
 #include <string>
 #include <type_traits>
 #include <unordered_map>
+#include <utility>
 #ifdef FMOD_OSX
 #include <AudioToolbox/AudioToolbox.h>
 #endif
